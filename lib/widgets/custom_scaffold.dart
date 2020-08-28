@@ -5,9 +5,7 @@ import 'package:fluttersample/views/settings.dart';
 
 class CustomScaffold extends StatelessWidget {
   CustomScaffold({this.body});
-
   final Widget body;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,26 +35,23 @@ class CustomScaffold extends StatelessWidget {
               ),
               accountName: Text('retheviper'),
               accountEmail: Text('retheviper@gmail.com'),
-              onDetailsPressed: () => print('arrow'),
+              onDetailsPressed: () => print('pressed'),
               decoration: BoxDecoration(color: Colors.green[400]),
             ),
             CustomListTile(
               icon: Icons.home,
               title: 'Home',
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SampleHome())),
+              goTo: SampleHome(),
             ),
             CustomListTile(
               icon: Icons.question_answer,
               title: 'QnA',
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Qna())),
+              goTo: Qna(),
             ),
             CustomListTile(
               icon: Icons.settings,
               title: 'Settings',
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Settings())),
+              goTo: Settings(),
             ),
           ],
         ),
@@ -67,10 +62,10 @@ class CustomScaffold extends StatelessWidget {
 }
 
 class CustomListTile extends StatelessWidget {
-  CustomListTile({this.icon, this.title, this.onTap});
+  CustomListTile({this.icon, this.title, this.goTo});
   final IconData icon;
   final String title;
-  final Function onTap;
+  final StatelessWidget goTo;
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -79,7 +74,8 @@ class CustomListTile extends StatelessWidget {
         color: Colors.grey[700],
       ),
       title: Text(title),
-      onTap: onTap,
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => goTo)),
       trailing: Icon(Icons.add),
     );
   }
